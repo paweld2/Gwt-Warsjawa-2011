@@ -10,8 +10,8 @@ repositories {
         }
     ivy {
         name = 'gwtRepoURL'
-	    ivyPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/ivys/ivy-[revision].xml"
-        artifactPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"
+//	    ivyPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/ivys/ivy-[revision].xml"
+        artifactPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"
     }
 }
 

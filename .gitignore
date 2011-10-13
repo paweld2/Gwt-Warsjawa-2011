@@ -2,3 +2,9 @@
 .project
 localRepo/cache
 localRepo/localrepository
+.settings
+helloWorldGWT/bin
+gwt-unitCache
+.classpath
+build
+war
