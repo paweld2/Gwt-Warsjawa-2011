@@ -1,0 +1,4 @@
+.gradle
+.project
+localRepo/cache
+localRepo/localrepository

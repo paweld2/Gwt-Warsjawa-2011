@@ -1,0 +1,32 @@
+apply plugin: 'eclipse'
+
+repositories {
+     add(new org.apache.ivy.plugins.resolver.FileSystemResolver()) {
+            name = 'gwtRepoLocal'
+            addIvyPattern "$projectDir/repo/gwtRepo/[organisation]/[module]-ivy-[revision].xml"
+            addArtifactPattern "$projectDir/repo/gwtRepo/[organisation]/[module]-[revision](-[classifier]).[ext]"
+            descriptor = 'optional'
+            checkmodified = true
+        }
+    ivy {
+        name = 'gwtRepoURL'
+	    ivyPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/ivys/ivy-[revision].xml"
+        artifactPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"
+    }
+}
+
+allprojects {
+    task hello << {task -> println "I'm $task.project.name" }
+}
+subprojects {
+        apply plugin: 'eclipse'
+        repositories {
+            add rootProject.repositories.gwtRepoURL
+        }
+        hello << {println "- I am a roots subproject"}
+}
+
+
+
+
+

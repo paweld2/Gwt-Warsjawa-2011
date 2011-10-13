@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ivy-repository" default="downloadLocalRepo" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="settings.dir" value="settings"/>
+	<property name="from.resolver" value="libraries"/>
+	<property name="to.resolver" value="local-repository"/>
+	
+	<property name="ivy.cache.dir" value="${basedir}/cache"/>
+	<property name="dest.repo.dir" value="${basedir}/localrepository"/>
+
+	<property name="ivy.jar.dir" value="${user.home}/.ant/lib"/>
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+
+    <target name="load-ivy">
+    	<path id="ivy.lib.path">
+    		<pathelement location="${ivy.jar.file}"/>
+    	</path>
+    	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>    
+    <target name="init-ivy" depends="load-ivy">
+       	<ivy:settings id="basic.settings" file="${settings.dir}/ivysettings-basic.xml"/>
+       	<ivy:settings id="advanced.settings" file="${settings.dir}/ivysettings-advanced.xml"/>
+    </target>
+
+	<!-- ================================= 
+          target: install libraries for gwt warsjawa
+         ================================= -->
+    <target name="downloadLocalRepo" depends="init-ivy" description="--&gt; install module on localrepo for gwt warsjawa">
+    	<ivy:install organisation="com.google.inject" module="guice" overwrite="true" settingsRef="advanced.settings" revision="3.0" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="org.hsqldb" module="hsqldb" overwrite="true" settingsRef="advanced.settings" revision="2.2.4" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="junit" module="junit" overwrite="true" settingsRef="advanced.settings" revision="4.10" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="com.google.gwt" module="gwt" overwrite="true" settingsRef="advanced.settings" revision="2.4.0" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="com.google.gwt.inject" module="gin" overwrite="true" settingsRef="advanced.settings" revision="1.5.0" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="com.google.appengine" module="appengine-api-1.0-sdk" overwrite="true" settingsRef="advanced.settings" revision="1.5.4" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="com.google.inject.extensions" module="guice-grapher" overwrite="true" settingsRef="advanced.settings" revision="3.0" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="com.google.inject.extensions" module="guice-servlet" overwrite="true" settingsRef="advanced.settings" revision="3.0" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    	<ivy:install organisation="com.google.inject.extensions" module="guice-persist" overwrite="true" settingsRef="advanced.settings" revision="3.0" from="${from.resolver}" to="${to.resolver}" transitive="true"/>
+    </target>
+
+    <target name="clean-cache" depends="init-ivy" description="--&gt; clean the cache">
+    	<ivy:cleancache settingsRef="basic.settings"/>
+    	<ivy:cleancache settingsRef="advanced.settings"/>
+    	<delete dir="${ivy.cache.dir}" failonerror="true"/>
+    </target>
+
+    <target name="clean-repo" description="--&gt; clean the destination repository">
+    	<delete dir="${dest.repo.dir}" failonerror="true"/>
+    </target>
+</project>
