@@ -22,6 +22,7 @@ dependencies {
     compile (
         [group: 'com.google.gwt', name: 'gwt-user', version: '2.4.0'],
         [group: 'com.google.gwt', name: 'gwt-dev', version: '2.4.0'],
+        [group: 'com.google.gwt', name: 'gwt-servlet', version: '2.4.0'],
     )
     testCompile group: 'junit', name: 'junit', version: '4.10'
 }
@@ -46,6 +47,14 @@ task gwtCompile << {
 	}
 }
 
+task(devMode, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.google.gwt.dev.DevMode'
+    classpath {
+        [ sourceSets.main.java.srcDirs, sourceSets.main.runtimeClasspath ]
+    }
+    args '-startupUrl', 'Test.html', '-war', "$gwtBuildDir", "pl.ja.Test"
+}
+
 task copyResourcesToWar(type: Copy) {
     from 'resources/content'
     into 'war'
@@ -57,6 +66,7 @@ war.dependsOn copyResourcesToWar
 war {
 	webInf { from 'resources/content/WEB-INF' }
     from gwtBuildDir
+    classpath configurations.runtime
 }
 
 stopKey = 'foo'
