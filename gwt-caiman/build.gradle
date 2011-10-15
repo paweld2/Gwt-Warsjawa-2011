@@ -1,0 +1,46 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+version = '0.3'
+group = 'eu.caimandesign.gwt'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['srcClient', 'srcServer', 'srcShared']
+        }
+    }
+    test {
+        java {
+            srcDir 'srcTest'
+        }
+    }
+}
+
+
+dependencies {
+    compile (
+        [group: 'com.google.inject', name: 'guice', version: '3.0'],
+        [group: 'com.google.inject.extensions', name: 'guice-assistedinject', version: '3.0'],
+        [group: 'com.google.guava', name: 'guava', version: 'r09'],
+        [group: 'com.google.gwt', name: 'gwt-user', version: '2.4.0'],
+        [group: 'com.google.gwt', name: 'gwt-dev', version: '2.4.0'],
+        [group: 'com.google.gwt.inject', name: 'gin', version: '1.5.0', transitive: false],
+        [group: 'com.google.appengine', name: 'appengine-api-1.0-sdk', version: '1.5.4', transitive: false],
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.10'
+}
+
+task copyClientSource(type: Copy) {
+    from 'srcClient'
+    from 'srcShared'
+    into sourceSets.main.classesDir
+}
+
+jar.dependsOn copyClientSource
+
+uploadArchives {
+    repositories {
+       add rootProject.repositories.gwtRepoLocal
+    }
+}

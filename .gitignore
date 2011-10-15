@@ -8,3 +8,4 @@ gwt-unitCache
 .classpath
 build
 war
+bin

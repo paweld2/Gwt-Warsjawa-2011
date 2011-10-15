@@ -3,8 +3,8 @@ apply plugin: 'eclipse'
 repositories {
      add(new org.apache.ivy.plugins.resolver.FileSystemResolver()) {
             name = 'gwtRepoLocal'
-            addIvyPattern "$projectDir/repo/gwtRepo/[organisation]/[module]-ivy-[revision].xml"
-            addArtifactPattern "$projectDir/repo/gwtRepo/[organisation]/[module]-[revision](-[classifier]).[ext]"
+            addIvyPattern "$projectDir/../repo/gwtRepo/[organisation]/[module]-ivy-[revision].xml"
+            addArtifactPattern "$projectDir/../repo/gwtRepo/[organisation]/[module]-[revision](-[classifier]).[ext]"
             descriptor = 'optional'
             checkmodified = true
         }

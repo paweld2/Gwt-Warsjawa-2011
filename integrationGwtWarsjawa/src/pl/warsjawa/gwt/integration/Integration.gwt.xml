@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='integration'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <inherits name='pl.warsjawa.gwt.gui.GuiGwtWarsjawa'/>
+  
+  <entry-point class='pl.warsjawa.gwt.integration.client.WarsJawaIntegration'/>
+  <set-property name="user.agent" value="gecko1_8"/>
+  
+  <source path='client'/>
+  <source path='shared'/>
+</module>

@@ -1,2 +1,4 @@
 include 'guiGwtWarsjawa'
 include 'helloWorldGWT'
+include 'gwt-caiman'
+include 'integrationGwtWarsjawa'

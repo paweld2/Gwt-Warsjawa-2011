@@ -1,0 +1,76 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+sourceCompatibility = 1.6
+version = '0.1'
+group = 'pl.warsjawa'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
+dependencies {
+    compile project(':guiGwtWarsjawa')
+    testCompile group: 'junit', name: 'junit', version: '4.10'
+}
+
+gwtBuildDir = 'war'
+webAppDirName = 'war'
+
+task gwtCompile << {  
+	created = (new File(gwtBuildDir)).mkdirs()  
+	ant.java(classname:'com.google.gwt.dev.Compiler', failOnError: 'true', fork: 'true') 
+	{    
+		jvmarg(value: '-Xmx184M')    
+		arg(line: '-war ' + gwtBuildDir)
+		arg(line: '-logLevel INFO')    
+		arg(line: '-style PRETTY')    
+		arg(value: 'pl.warsjawa.gwt.integration.Integration')    
+		classpath {      
+			pathElement(location: 'src')      
+			pathElement(path: configurations.compile.asPath)       
+		}  
+	}
+}
+
+task(devMode, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.google.gwt.dev.DevMode'
+    classpath {
+        [ sourceSets.main.java.srcDirs, sourceSets.main.runtimeClasspath ]
+    }
+    args '-startupUrl', 'integration.html', '-war', "$gwtBuildDir", "pl.warsjawa.gwt.integration.Integration"
+}
+
+task copyResourcesToWar(type: Copy) {
+    from 'resources/content'
+    into 'war'
+}
+
+gwtCompile.dependsOn classes
+gwtCompile.dependsOn copyResourcesToWar
+devMode.dependsOn copyResourcesToWar
+war.dependsOn gwtCompile
+ 
+war {
+	webInf { from 'resources/content/WEB-INF' }
+    from gwtBuildDir
+    classpath configurations.runtime
+}
+
+stopPort = 9451
+httpPort = 8163
+
+uploadArchives {
+    repositories {
+       add rootProject.repositories.gwtRepoLocal
+    }
+}
