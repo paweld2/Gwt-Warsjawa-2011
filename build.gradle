@@ -8,8 +8,15 @@ repositories {
             descriptor = 'optional'
             checkmodified = true
         }
+
+     add(new org.apache.ivy.plugins.resolver.FileSystemResolver()) {
+            name = 'gwtRepoURL'
+            addIvyPattern "$projectDir/localRepo/localrepository/gwtwarsjawa/[organisation]/[module]/ivys/ivy-[revision].xml"
+            addArtifactPattern "$projectDir/localRepo/localrepository/gwtwarsjawa/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"
+            checkmodified = false
+        }
     ivy {
-        name = 'gwtRepoURL'
+        name = 'gwtRepoURL-OLD'
 //	    ivyPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/ivys/ivy-[revision].xml"
         artifactPattern "http://gwtwarsjawa/localrepository/gwtwarsjawa/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]"
     }

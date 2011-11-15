@@ -27,6 +27,7 @@ public class MainPresenterGui extends WidgetPresenter<MainDisplay> implements Ma
 	protected void onRevealDisplay() {
 		// 2. wyswietl sie
 		GWT.log("wyswietl sie");
+		RootPanel.get().clear();
 		RootPanel.get().add(getDisplay().asWidget());
 	}
 

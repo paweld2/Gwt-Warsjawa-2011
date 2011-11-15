@@ -52,7 +52,7 @@ task(devMode, dependsOn: 'classes', type: JavaExec) {
     classpath {
         [ sourceSets.main.java.srcDirs, sourceSets.main.runtimeClasspath ]
     }
-    args '-startupUrl', 'Test.html', '-war', "$gwtBuildDir", "pl.ja.Test"
+    args '-startupUrl', 'Test.html', '-port' , '8888' ,  '-war', "$gwtBuildDir", "pl.ja.Test"
 }
 
 task copyResourcesToWar(type: Copy) {

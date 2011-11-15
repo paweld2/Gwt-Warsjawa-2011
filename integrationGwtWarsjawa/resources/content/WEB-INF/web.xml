@@ -5,6 +5,16 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
+<servlet>
+	<servlet-name>ServletGodzina</servlet-name>
+	<servlet-class>pl.warsjawa.gwt.gui.service.GodzinaServiceImpl</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>ServletGodzina</servlet-name>
+	<url-pattern>/godzina</url-pattern>
+</servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>integration.html</welcome-file>
   </welcome-file-list>

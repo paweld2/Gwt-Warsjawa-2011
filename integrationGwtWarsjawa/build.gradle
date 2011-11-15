@@ -30,7 +30,7 @@ task gwtCompile << {
 	created = (new File(gwtBuildDir)).mkdirs()  
 	ant.java(classname:'com.google.gwt.dev.Compiler', failOnError: 'true', fork: 'true') 
 	{    
-		jvmarg(value: '-Xmx184M')    
+		jvmarg(value: '-Xmx512M')    
 		arg(line: '-war ' + gwtBuildDir)
 		arg(line: '-logLevel INFO')    
 		arg(line: '-style PRETTY')    
@@ -47,6 +47,7 @@ task(devMode, dependsOn: 'classes', type: JavaExec) {
     classpath {
         [ sourceSets.main.java.srcDirs, sourceSets.main.runtimeClasspath ]
     }
+	jvmArgs '-Xrunjdwp:transport=dt_socket,address=8989,server=y,suspend=n', '-Xdebug'    
     args '-startupUrl', 'integration.html', '-war', "$gwtBuildDir", "pl.warsjawa.gwt.integration.Integration"
 }
 

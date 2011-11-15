@@ -1,0 +1,89 @@
+Materials prepared for workshop GWT-warsjawa2011:
+
+https://github.com/warszawajug/warsjawa2011/wiki/Warsztaty-GWT
+
+Instruction
+
+=========  Setup enviroment
+
+-- Instalation
+Gradle 1.0-milestone-4
+
+-- create local repo
+Folder LocalRepo contains tools to download artefacts to a local ivy repositorium:
+
+cd localRepo
+ant downloadLocalRepo
+
+The FileSystemRepo is created on localRepo/localrepository/gwtwarsjawa, references on gradle are created on main build.gradle on repo 'gwtRepoURL'
+
+
+-- Create eclipse projects
+On main folder
+
+gradle eclipse
+
+To make import from eclipse easy, delete main projekt file
+
+rm .project
+
+Import all projects on main folder to eclipse
+file->import...-> Existing Projects into Workspace
+
+
+=========  Basic example "helloWorldGWT"
+This project contains a simple project with 2 entry points.
+LoggerEntryPoint shows how to use com.google.gwt.logging.Logging, configuration on Test.gwt.xml.
+
+GWT compilation is setup only for firefox, check Test.gwt.xml:
+  <set-property name="user.agent" value="gecko1_8" />  
+
+Create war: 
+# gradle war
+
+Execute project on jetty using war:
+# gradle jettyRunWar
+
+Execute project on jetty using compilation data:
+# gradle jettyRun
+
+URL:
+http://localhost:8163/helloWorldGWT/
+
+
+=========  MVP example
+Project structure is as follow:
+gwt-caiman 		-- framework library
+guiGwtWarsjawa 		-- application project
+integrationGwtWarsjawa 	-- War project
+
+Dependencies are:
+gwt-caiman <- guiGwtWarsjawa <- integrationGwtWarsjawa
+
+Application guiGwtWarsjawa is provided as a GWT-Module to integrationGwtWarsjawa:
+  <inherits name='pl.warsjawa.gwt.gui.GuiGwtWarsjawa'/>
+
+Application execution is realized on 
+  <entry-point class='pl.warsjawa.gwt.integration.client.WarsJawaIntegration'/>
+
+
+On folder integrationGwtWarsjawa
+
+Create war: 
+# gradle war
+
+Execute project on jetty using war:
+# gradle jettyRunWar
+
+Execute project on jetty using compilation data:
+# gradle jettyRun
+
+URL:
+http://localhost:8163/integrationGwtWarsjawa/
+
+
+
+
+
+
+
