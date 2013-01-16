@@ -20,7 +20,7 @@ sourceSets {
 task copyClientSource(type: Copy) {
     from 'srcClient'
     from 'srcShared'
-    into sourceSets.main.classesDir
+    into sourceSets.main.output.classesDir
 }
 
 jar.dependsOn copyClientSource
@@ -30,8 +30,3 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.10'
 }
 
-uploadArchives {
-    repositories {
-       add rootProject.repositories.gwtRepoLocal
-    }
-}

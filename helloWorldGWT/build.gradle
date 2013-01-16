@@ -73,8 +73,3 @@ stopKey = 'foo'
 stopPort = 9451
 httpPort = 8163
 
-uploadArchives {
-    repositories {
-       add rootProject.repositories.gwtRepoLocal
-    }
-}

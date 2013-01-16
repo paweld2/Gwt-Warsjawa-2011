@@ -34,13 +34,8 @@ dependencies {
 task copyClientSource(type: Copy) {
     from 'srcClient'
     from 'srcShared'
-    into sourceSets.main.classesDir
+    into sourceSets.main.output.classesDir
 }
 
 jar.dependsOn copyClientSource
 
-uploadArchives {
-    repositories {
-       add rootProject.repositories.gwtRepoLocal
-    }
-}

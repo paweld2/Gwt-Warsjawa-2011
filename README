@@ -7,16 +7,7 @@ Instruction
 =========  Setup enviroment
 
 -- Instalation
-Gradle 1.0-milestone-4
-
--- create local repo
-Folder LocalRepo contains tools to download artefacts to a local ivy repositorium:
-
-cd localRepo
-ant downloadLocalRepo
-
-The FileSystemRepo is created on localRepo/localrepository/gwtwarsjawa, references on gradle are created on main build.gradle on repo 'gwtRepoURL'
-
+Gradle 1.2
 
 -- Create eclipse projects
 On main folder
